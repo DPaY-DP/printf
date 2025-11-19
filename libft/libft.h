@@ -6,7 +6,7 @@
 /*   By: dpfannen <dpfannen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 14:59:00 by dpfannen          #+#    #+#             */
-/*   Updated: 2025/11/05 18:08:10 by dpfannen         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:05:01 by dpfannen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
-
-typedef struct s_split_next
-{
-	size_t			start;
-	size_t			lenght;
-}					t_split_next;
 
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
