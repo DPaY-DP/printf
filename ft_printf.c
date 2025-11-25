@@ -6,7 +6,7 @@
 /*   By: dpfannen <dpfannen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:34:06 by dpfannen          #+#    #+#             */
-/*   Updated: 2025/11/20 18:29:28 by dpfannen         ###   ########.fr       */
+/*   Updated: 2025/11/25 13:49:40 by dpfannen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ int	ft_printf(const char *fmt, ...)
 	while (*fmt != '\0')
 	{
 		if (*fmt != '%')
-			write(1, fmt, 1);
+		{
+			if (write(1, fmt, 1) == -1)
+      			return (-1);
+			j++;
+		}
 		if (*fmt == '%')
 		{
 			fmt++;
@@ -85,18 +89,14 @@ int	ft_printf(const char *fmt, ...)
 			{
 				if (write(1, fmt, 1) == -1)
 					return (-1);
+				j++;
 			}
 			else if (*fmt == 'x')
 			{
 				hex_low = "0123456789abcdef";
 				hex = va_arg(argptr, unsigned int);
-				if (hex == 0)
-				{
-					if (write(1, "0", 1) == -1)
-						return (-1);
-				}
 				k = 0;
-				while (hex > 16)
+				while (hex >= 16)
 				{
 					hex_array[k] = hex_low[hex % 16];
 					k++;
@@ -115,12 +115,8 @@ int	ft_printf(const char *fmt, ...)
 			{
 				hex_top = "0123456789ABCDEF";
 				hex = va_arg(argptr, unsigned int);
-				if (hex == 0)
-				{
-					if (write(1, "0", 1) == -1)
-						return (-1);
-				}
-				while (hex > 16)
+				k = 0;
+				while (hex >= 16)
 				{
 					hex_array[k] = hex_top[hex % 16];
 					k++;
@@ -173,50 +169,48 @@ int	ft_printf(const char *fmt, ...)
 			}
 		}
 		fmt++;
-		if (*fmt != '\0')
-			j++;
 	}
 	va_end(argptr);
 	return (j);
 }
 
-int	main(void)
-{
-	int i = 32;
-	void *a = &i;
-	char c = 'A';
-	char *str = "32asdad333144 ss";
-	int j;
-	int k;
-	ft_printf("Mine: \n");
-	j = ft_printf("Int: %i\n", i);
-	ft_printf("Lenght: %d\n", j);
-	j = ft_printf("String: %s\n", str);
-	ft_printf("Lenght: %d\n", j);
-	j = ft_printf("Char C: %c\n", c);
-	ft_printf("Lenght: %d\n", j);
-	j = ft_printf("hex: %x\n", 3000000);
-	ft_printf("Lenght: %d\n", j);
-	j = ft_printf("hexBig: %X\n", 300);
-	ft_printf("Lenght: %d\n", j);
-	j = ft_printf("U: %u\n", i);
-	ft_printf("Lenght: %d\n", j);
-	j = ft_printf("P: %p\n", (void *)str);
-	ft_printf("Lenght: %d\n", j);
+// int	main(void)
+// {
+// 	int i = 32;
+// 	void *a = &i;
+// 	char c = 'A';
+// 	char *str = "32asdad333144 ss";
+// 	int j;
+// 	int k;
+// 	ft_printf("Mine: \n");
+// 	j = ft_printf("Int: %i %i\n", i, i);
+// 	ft_printf("Lenght: %d\n", j);
+// 	j = ft_printf("String: %s\n", str);
+// 	ft_printf("Lenght: %d\n", j);
+// 	j = ft_printf("Char C: %c %c %c\n", c, '\0',  '0');
+// 	ft_printf("Lenght: %d\n", j);
+// 	j = ft_printf("hex: %x\n", 0);
+// 	ft_printf("Lenght: %d\n", j);
+// 	j = ft_printf("hexBig: %X\n", 300);
+// 	ft_printf("Lenght: %d\n", j);
+// 	j = ft_printf("U: %u\n", i);
+// 	ft_printf("Lenght: %d\n", j);
+// 	j = ft_printf("P: %p\n", (void *)str);
+// 	ft_printf("Lenght: %d\n", j);
 
-	ft_printf("\nPrintf: \n");
-	k = printf("Int: %i\n", i);
-	printf("Length: %d\n", k);
-	k = printf("String: %s\n", str);
-	printf("Lenght: %d\n", k);
-	k = printf("Char C: %c\n", c);
-	printf("Lenght: %d\n", k);
-	k = printf("hex: %x\n", 3000000);
-	printf("Lenght: %d\n", k);
-	k = printf("hexBig: %X\n", 300);
-	printf("Lenght: %d\n", k);
-	k = printf("U: %u\n", i);
-	printf("Lenght: %d\n", k);
-	k = printf("P: %p\n", (void *)str);
-	printf("Lenght: %d\n", k);
-}
+// 	ft_printf("\nPrintf: \n");
+// 	k = printf("Int: %i\n", i);
+// 	printf("Length: %d\n", k);
+// 	k = printf("String: %s\n", str);
+// 	printf("Lenght: %d\n", k);
+// 	k = printf("Char C: %c %c %c\n", c, '\0',  '0');
+// 	printf("Lenght: %d\n", k);
+// 	k = printf("hex: %x\n", 0);
+// 	printf("Lenght: %d\n", k);
+// 	k = printf("hexBig: %X\n", 300);
+// 	printf("Lenght: %d\n", k);
+// 	k = printf("U: %u\n", i);
+// 	printf("Lenght: %d\n", k);
+// 	k = printf("P: %p\n", (void *)str);
+// 	printf("Lenght: %d\n", k);
+// }
