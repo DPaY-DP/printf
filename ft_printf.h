@@ -6,7 +6,7 @@
 /*   By: dpfannen <dpfannen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 14:39:30 by dpfannen          #+#    #+#             */
-/*   Updated: 2025/11/25 13:11:50 by dpfannen         ###   ########.fr       */
+/*   Updated: 2025/11/26 18:52:28 by dpfannen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int     ft_printf(const char *fmt, ...);
+char	*ft_itoa_base(unsigned long long n, const char *base_str, int base);
+int		ft_put_char_fd(char c, int fd);
+int		ft_var_di(va_list argptr);
+int		ft_printf(const char *fmt, ...);
+int		ft_var_s(va_list argptr);
+int		ft_var_c(va_list argptr);
+int		ft_var_xu(va_list argptr, char type);
+int		ft_var_p(va_list argptr);
 
 #endif
